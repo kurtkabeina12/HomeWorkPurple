@@ -1,3 +1,4 @@
+/* Headline.jsx */
 import './Headline.css'
 
 export function Headline({text}){
