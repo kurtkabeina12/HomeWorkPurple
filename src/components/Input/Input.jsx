@@ -1,3 +1,5 @@
+/* Input.jsx */
+
 import { useState } from 'react'
 import './Input.css'
 
