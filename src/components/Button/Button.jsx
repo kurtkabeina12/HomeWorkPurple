@@ -1,3 +1,4 @@
+/* Button.jsx */
 import './Button.css'
 
 export function Button({ text }) {

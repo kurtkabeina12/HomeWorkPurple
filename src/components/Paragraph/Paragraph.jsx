@@ -1,3 +1,4 @@
+/* Paragraph.jsx */
 import './Paragraph.css'
 
 export function Paragraph({data, textSize, textHeigth}){
