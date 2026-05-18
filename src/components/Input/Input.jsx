@@ -1,7 +1,7 @@
 /* Input.jsx */
 
 import { useState } from 'react'
-import './Input.css'
+import './Input.module.css'
 
 export function Input({ placeholder, image }) {
 	const inputClassName = image ? 'input-block image' : 'input-block';

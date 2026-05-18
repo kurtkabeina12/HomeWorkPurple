@@ -1,4 +1,4 @@
-import "./Card.css"
+import "./Card.module.css"
 import star from "../../assets/star.svg"
 import like from "../../assets/like.svg"
 

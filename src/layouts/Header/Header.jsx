@@ -1,6 +1,6 @@
 /* Header.jsx */
 
-import './Header.css'
+import './Header.module.css'
 
 export function Header() {
 	return (
