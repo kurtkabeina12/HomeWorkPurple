@@ -1,8 +1,9 @@
+/* Input.jsx */
+
 import { useState } from 'react'
 import './Input.css'
 
 export function Input({ placeholder, image }) {
-	const [val, setVal] = useState('')
 	const inputClassName = image ? 'input-block image' : 'input-block';
 
 	const texted = (e) => {
@@ -18,7 +19,7 @@ export function Input({ placeholder, image }) {
 				:
 				''
 			}
-			<input placeholder={placeholder} onChange={texted} value={val} className={inputClassName} type='text' />
+			<input placeholder={placeholder} className={inputClassName} type='text' />
 		</div>
 	)
 }
