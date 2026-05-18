@@ -1,5 +1,5 @@
 /* Headline.jsx */
-import './Headline.css'
+import './Headline.module.css'
 
 export function Headline({text}){
     return(

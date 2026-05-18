@@ -1,5 +1,5 @@
 /* Button.jsx */
-import './Button.css'
+import './Button.module.css'
 
 export function Button({ text }) {
 

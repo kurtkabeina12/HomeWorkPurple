@@ -1,4 +1,4 @@
-import './Search.css'
+import './Search.module.css'
 import { useState } from 'react';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';

@@ -1,4 +1,4 @@
-import "./CardsList.css"
+import "./CardsList.module.css"
 import { Card } from "../Card/Card"
 
 export function CardsList({ data }) {
