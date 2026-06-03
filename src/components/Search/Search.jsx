@@ -1,4 +1,4 @@
-import './Search.module.css'
+import styles from './Search.module.css'
 import { useState } from 'react';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
@@ -11,7 +11,7 @@ export function Search() {
     };
 
     return (
-        <div className="search-block">
+        <div className={styles.searchBlock}>
             <Input
                 placeholder="Введите название"
                 image={true}

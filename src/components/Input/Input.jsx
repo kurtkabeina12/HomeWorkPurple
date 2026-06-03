@@ -1,25 +1,32 @@
-/* Input.jsx */
+import { forwardRef } from 'react';
+import styles from './Input.module.css';
 
-import { useState } from 'react'
-import './Input.module.css'
-
-export function Input({ placeholder, image }) {
-	const inputClassName = image ? 'input-block image' : 'input-block';
-
-	const texted = (e) => {
-		setVal(e.target.value)
-	}
+export const Input = forwardRef(function Input(
+	{ placeholder, image, value, onChange },
+	ref
+) {
+	const inputClassName = image
+		? `${styles.inputBlock} ${styles.image}`
+		: styles.inputBlock;
 
 	return (
-		<div className='block-input'>
-			{image ?
-				<>
-					<img className="search-image" src="../src/assets/search-normal.png" alt="Поиск" />
-				</>
-				:
-				''
-			}
-			<input placeholder={placeholder} className={inputClassName} type='text' />
+		<div className={styles.blockInput}>
+			{image && (
+				<img
+					className={styles.searchImage}
+					src="../src/assets/search-normal.png"
+					alt="Поиск"
+				/>
+			)}
+
+			<input
+				ref={ref}
+				placeholder={placeholder}
+				className={inputClassName}
+				type="text"
+				value={value}
+				onChange={onChange}
+			/>
 		</div>
-	)
-}
+	);
+});

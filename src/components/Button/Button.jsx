@@ -1,10 +1,10 @@
 /* Button.jsx */
-import './Button.module.css'
+import styles from './Button.module.css'
 
-export function Button({ text }) {
+export function Button({ text, onClick }) {
 
     return (
-        <button className='button'>
+        <button className={styles.button} onClick={onClick}>
             {text}
         </button>
     )

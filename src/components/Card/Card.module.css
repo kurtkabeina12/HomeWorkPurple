@@ -1,11 +1,11 @@
-.card-item {
+.cardItem {
     backdrop-filter: blur(80px);
     background: rgba(32, 40, 62, 0.8);
     border-radius: 12px;
     padding: 8px 8px 16px;
 }
 
-.card-item__rating {
+.cardItemRating {
     border-radius: 8px;
     padding: 4px 8px;
     backdrop-filter: blur(8px);
@@ -18,24 +18,24 @@
     top: 16px;
 }
 
-.card-item__rating_text {
+.cardItemRatingText {
     font-weight: 400;
     font-size: 16px;
     line-height: 150%;
     color: #ffad49;
 }
 
-.card-item__image {
+.cardItemImage {
     position: relative;
     border-radius: 8px;
 }
 
-.card-item__info {
+.cardItemInfo {
     padding-top: 10px;
     padding-left: 8px;
 }
 
-.card-item__name {
+.cardItemName {
     font-weight: 600;
     font-size: 16px;
     line-height: 150%;
@@ -44,7 +44,7 @@
     margin-bottom: 16px;
 }
 
-.card-item__btn {
+.cardItemBtn {
     display: flex;
     flex-direction: row;
     gap: 8px;

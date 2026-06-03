@@ -1,9 +1,9 @@
-import "./CardsList.module.css"
+import styles from "./CardsList.module.css"
 import { Card } from "../Card/Card"
 
 export function CardsList({ data }) {
 	return (
-		<div className="card-list">
+		<div className={styles.cardList}>
 			{data.map((el) => (
 				<div key={el.id}>
 					<Card

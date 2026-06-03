@@ -1,10 +1,10 @@
 /* Headline.jsx */
-import './Headline.module.css'
+import styles from './Headline.module.css'
 
-export function Headline({text}){
-    return(
-    <h2 className='headline-block'>
-        {text}
-    </h2>
+export function Headline({ text }) {
+    return (
+        <h2 className={styles.headlineBlock}>
+            {text}
+        </h2>
     )
 }
