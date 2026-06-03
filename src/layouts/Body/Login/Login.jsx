@@ -24,12 +24,6 @@ export function Login() {
         console.log('Вошли:', login);
     };
 
-    const logOut = () => {
-        setUser({
-            isLogined: false
-        })
-    }
-
     return (
         <div className={styles.loginBlock}>
             <Headline text={'Вход'} />

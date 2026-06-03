@@ -67,7 +67,7 @@ function App() {
 
   return (
     <div className='app'>
-      {user ?
+      {user && user.isLogined ?
         <>
           <Header name={user.name} />
           <Headline text={'Поиск'} />

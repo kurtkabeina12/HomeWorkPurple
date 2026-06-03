@@ -1,11 +1,17 @@
-/* Button.jsx */
-import styles from './Button.module.css'
+import { forwardRef } from 'react';
+import styles from './Button.module.css';
 
-export function Button({ text, onClick }) {
-
+export const Button = forwardRef(function Button(
+    { text, onClick },
+    ref
+) {
     return (
-        <button className={styles.button} onClick={onClick}>
+        <button
+            ref={ref}
+            className={styles.button}
+            onClick={onClick}
+        >
             {text}
         </button>
-    )
-}
+    );
+});
