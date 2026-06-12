@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { useLocalStorage } from "../hooks/use-localStorage.hook";
 
 export const UserContext = createContext({
     userName: 'quest',
@@ -6,7 +7,7 @@ export const UserContext = createContext({
 })
 
 export const UserContextProvider = ({ children }) => {
-    const [user, setUser] = useState({
+    const [user, setUser] = useLocalStorage('user', {
         userName: 'quest',
         isLogined: false
     });
