@@ -1,13 +1,13 @@
-import { useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Button } from "../../../components/Button/Button";
 import { Headline } from "../../../components/Headline/Headline";
 import { Input } from "../../../components/Input/Input";
 import styles from "./Login.module.css";
-import { useLocalStorage } from '../../../hooks/use-localStorage.hook';
+import { UserContext } from '../../../context/user.context';
 
 export function Login() {
     const inputRef = useRef(null);
-    const [user, setUser] = useLocalStorage('user');
+    const { user, setUser } = useContext(UserContext);
     const [login, setLogin] = useState('');
 
     const handleSubmit = () => {

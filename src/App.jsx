@@ -8,8 +8,8 @@ import { Search } from './components/Search/Search'
 import { Header } from './layouts/Header/Header'
 import { images } from './assets/images'
 import { Login } from './layouts/Body/Login/Login'
-import { useEffect, useState } from 'react'
-import { useLocalStorage } from './hooks/use-localStorage.hook'
+import { useContext, useEffect, useState } from 'react'
+import { UserContext } from './context/user.context'
 
 const FILMS_LIST = [
   {
@@ -63,7 +63,7 @@ const FILMS_LIST = [
 ]
 
 function App() {
-  const [user] = useLocalStorage('user');
+  const { user } = useContext(UserContext);
 
   return (
     <div className='app'>

@@ -1,10 +1,12 @@
 /* Header.jsx */
 
+import { useContext } from 'react';
 import { useLocalStorage } from '../../hooks/use-localStorage.hook';
 import styles from './Header.module.css'
+import { UserContext } from '../../context/user.context';
 
 export function Header({ name }) {
-	const [user, setUser] = useLocalStorage('user');
+	const { user, setUser } = useContext(UserContext);
 
 	const logOut = () => {
 		setUser({
