@@ -8,4 +8,13 @@ import bigBangTheoryImg from "./The_Big_Bang_Theory.jpg";
 import twoAndAHalfMenImg from "./Two_And_a_Half_Men.jpg";
 
 
-export const images = { blackWidowImg, shangChiImg, lokiImg, howIMetYourMotherImg, moneyHeistImg, friendsImg, bigBangTheoryImg, twoAndAHalfMenImg };
+export const images: Record<string, string> = {
+  blackWidowImg,
+  shangChiImg,
+  lokiImg,
+  howIMetYourMotherImg,
+  moneyHeistImg,
+  friendsImg,
+  bigBangTheoryImg,
+  twoAndAHalfMenImg,
+};

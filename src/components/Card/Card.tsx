@@ -1,8 +1,9 @@
 import styles from "./Card.module.css"
 import star from "../../assets/star.svg"
 import like from "../../assets/like.svg"
+import { CardProps } from "./Card.props"
 
-export function Card({ image, filmName, filmRating }) {
+export function Card({ image, filmName, filmRating }: CardProps) {
 	return (
 		<div className={styles.cardItem}>
 			<img className={styles.cardItemImage} src={image} />

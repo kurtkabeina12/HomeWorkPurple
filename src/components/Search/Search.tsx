@@ -4,7 +4,7 @@ import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
 
 export function Search() {
-    const [query, setQuery] = useState('');
+    const [query, setQuery] = useState<string>('');
 
     const handleSearch = () => {
         console.log('Поиск фильма:', query);

@@ -1,7 +1,8 @@
 import styles from "./CardsList.module.css"
 import { Card } from "../Card/Card"
+import { CardListProps } from "./CardList.props"
 
-export function CardsList({ data }) {
+export function CardsList({ data }: CardListProps) {
 	return (
 		<div className={styles.cardList}>
 			{data.map((el) => (
