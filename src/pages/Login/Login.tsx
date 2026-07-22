@@ -1,14 +1,21 @@
 import { useContext, useRef, useState } from 'react';
-import { Button } from "../../../components/Button/Button";
-import { Headline } from "../../../components/Headline/Headline";
-import { Input } from "../../../components/Input/Input";
 import styles from "./Login.module.css";
-import { UserContext } from '../../../context/user.context';
+import { Button } from '../../components/Button/Button';
+import { Headline } from '../../components/Headline/Headline';
+import { Input } from '../../components/Input/Input';
+import { UserContext } from '../../context/user.context';
 
 export function Login() {
-    const inputRef = useRef(null);
-    const { user, setUser } = useContext(UserContext);
+    const inputRef = useRef<HTMLInputElement>(null);
+    const context = useContext(UserContext);
     const [login, setLogin] = useState('');
+
+
+    if (!context) {
+        throw new Error("UserContext not found");
+    }
+
+    const { user, setUser } = context;
 
     const handleSubmit = () => {
         if (!login.trim()) {
@@ -17,7 +24,7 @@ export function Login() {
         }
 
         setUser({
-            name: login,
+            userName: login,
             isLogined: true
         });
 

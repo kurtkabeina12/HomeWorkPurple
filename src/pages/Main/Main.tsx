@@ -1,15 +1,12 @@
-import './App.css'
-import { Button } from './components/Button/Button'
-import { Headline } from './components/Headline/Headline'
-import { Input } from './components/Input/Input'
-import { CardsList } from './components/CardsList/CardsList'
-import { Paragraph } from './components/Paragraph/Paragraph'
-import { Search } from './components/Search/Search'
-import { Header } from './layouts/Header/Header'
-import { images } from './assets/images'
-import { Login } from './layouts/Body/Login/Login'
-import { useContext, useEffect, useState } from 'react'
-import { UserContext } from './context/user.context'
+import { images } from '../../assets/images';
+import { CardsList } from '../../components/CardsList/CardsList';
+import { Header } from '../../components/Header/Header';
+import { Headline } from '../../components/Headline/Headline';
+import { Paragraph } from '../../components/Paragraph/Paragraph';
+import { Search } from '../../components/Search/Search';
+import { UserContext } from '../../context/user.context';
+import { Login } from '../Login/Login';
+import { useContext } from 'react'
 
 const FILMS_LIST = [
   {
@@ -62,14 +59,19 @@ const FILMS_LIST = [
   }
 ]
 
-function App() {
-  const { user } = useContext(UserContext);
+function Main() {
+  const context = useContext(UserContext);
+
+	if (!context) {
+		throw new Error("UserContext not found");
+	}
+
+  const { user } = context;
 
   return (
     <div className='app'>
       {user && user.isLogined ?
         <>
-          <Header name={user.name} />
           <Headline text={'Поиск'} />
           <Paragraph data={'Введите название фильма, сериала или мультфильма для поиска и добавления в избранное.'} textSize={'16px'} textHeigth={'150%'} />
           <Search />
@@ -77,7 +79,6 @@ function App() {
         </>
         :
         <>
-          <Header />
           <Login />
         </>
       }
@@ -85,4 +86,4 @@ function App() {
   )
 }
 
-export default App
+export default Main
