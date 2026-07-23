@@ -2,6 +2,7 @@ import styles from './Search.module.css'
 import { useState } from 'react';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
+import cn from 'classnames';
 
 export function Search() {
     const [query, setQuery] = useState<string>('');
@@ -11,7 +12,7 @@ export function Search() {
     };
 
     return (
-        <div className={styles.searchBlock}>
+        <div className={cn(styles['searchBlock'])}>
             <Input
                 placeholder="Введите название"
                 image={true}

@@ -4,6 +4,7 @@ import { Button } from '../../components/Button/Button';
 import { Headline } from '../../components/Headline/Headline';
 import { Input } from '../../components/Input/Input';
 import { UserContext } from '../../context/user.context';
+import cn from 'classnames';
 
 export function Login() {
     const inputRef = useRef<HTMLInputElement>(null);
@@ -32,7 +33,7 @@ export function Login() {
     };
 
     return (
-        <div className={styles.loginBlock}>
+        <div className={cn(styles['loginBlock'])}>
             <Headline text={'Вход'} />
             <Input
                 placeholder="Введите логин"

@@ -5,7 +5,7 @@ import styles from './Header.module.css'
 import { UserContext } from '../../context/user.context';
 import { HeaderProps } from './Header.props';
 import cn from 'classnames';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export function Header(props: HeaderProps) {
 	const context = useContext(UserContext);
@@ -27,15 +27,24 @@ export function Header(props: HeaderProps) {
 			<img className={cn(styles['headerLogo)'])} src="../src/assets/logo.png" alt="Логотип" />
 			<nav className={cn(styles['headerLinks'])}>
 				<ul>
-					<Link to={'/'}><a className={cn(styles['headerLink'], styles['active'])} >Поиск фильмов</a></Link>
-					<Link to={'/'}><a className={cn(styles['headerLink'])}>Мои фильмы</a></Link>
+					<NavLink
+  to="/"
+						className={({ isActive }) =>
+							cn(styles.headerLink, {
+								[styles.active]: isActive
+							})
+						}
+					>
+						Поиск фильмов
+					</NavLink>
+					<NavLink to={'/favorites'} className={cn(styles['headerLink'])}>Мои фильмы</NavLink>
 					{props.name ?
 						<>
 							<p>{props.name}</p>
-							<button onClick={logOut}>Выйти</button>
+							<NavLink onClick={logOut} className={cn(styles['headerLink'])} to={'./login'}>Выйти</NavLink>
 						</>
 						:
-						<Link to={'./login'}><a className={styles.headerLink} href="">Войти <img src="../src/assets/login.png" /></a></Link>
+						<NavLink to={'./login'} className={styles.headerLink}>Войти <img src="../src/assets/login.png" /></NavLink>
 					}
 				</ul>
 			</nav>

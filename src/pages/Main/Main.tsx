@@ -1,6 +1,5 @@
 import { images } from '../../assets/images';
 import { CardsList } from '../../components/CardsList/CardsList';
-import { Header } from '../../components/Header/Header';
 import { Headline } from '../../components/Headline/Headline';
 import { Paragraph } from '../../components/Paragraph/Paragraph';
 import { Search } from '../../components/Search/Search';
@@ -62,27 +61,27 @@ const FILMS_LIST = [
 function Main() {
   const context = useContext(UserContext);
 
-	if (!context) {
-		throw new Error("UserContext not found");
-	}
+    if (!context) {
+        throw new Error("UserContext not found");
+    }
 
   const { user } = context;
 
   return (
-    <div className='app'>
-      {user && user.isLogined ?
+    <>
+      {user && user.isLogined ? (
         <>
           <Headline text={'Поиск'} />
           <Paragraph data={'Введите название фильма, сериала или мультфильма для поиска и добавления в избранное.'} textSize={'16px'} textHeigth={'150%'} />
           <Search />
           <CardsList data={FILMS_LIST} />
         </>
-        :
+      ) : (
         <>
           <Login />
         </>
-      }
-    </div>
+      )}
+    </>
   )
 }
 

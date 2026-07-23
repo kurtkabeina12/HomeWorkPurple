@@ -1,6 +1,7 @@
 import { forwardRef } from 'react';
 import styles from './Button.module.css';
 import { ButtonProps } from './Button.props';
+import cn from 'classnames';
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
     { text, onClick },
@@ -9,7 +10,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     return (
         <button
             ref={ref}
-            className={styles.button}
+            className={cn(styles['button'])}
             onClick={onClick}
         >
             {text}
