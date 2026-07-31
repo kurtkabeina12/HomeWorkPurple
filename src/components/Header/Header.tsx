@@ -24,7 +24,7 @@ export function Header(props: HeaderProps) {
 	}
 	return (
 		<div className={cn(styles['headerBlock'])}>
-			<img className={cn(styles['headerLogo)'])} src="../src/assets/logo.png" alt="Логотип" />
+			<img className={cn(styles['headerLogo'])} src="../src/assets/logo.png" alt="Логотип" />
 			<nav className={cn(styles['headerLinks'])}>
 				<ul>
 					<NavLink
@@ -37,11 +37,19 @@ export function Header(props: HeaderProps) {
 					>
 						Поиск фильмов
 					</NavLink>
-					<NavLink to={'/favorites'} className={cn(styles['headerLink'])}>Мои фильмы</NavLink>
+					<NavLink to={'/favorites'} className={({ isActive }) =>
+							cn(styles.headerLink, {
+								[styles.active]: isActive
+							})
+						}>Мои фильмы</NavLink>
 					{props.name ?
 						<>
 							<p>{props.name}</p>
-							<NavLink onClick={logOut} className={cn(styles['headerLink'])} to={'./login'}>Выйти</NavLink>
+							<NavLink onClick={logOut} className={({ isActive }) =>
+							cn(styles.headerLink, {
+								[styles.active]: isActive
+							})
+						} to={'./login'}>Выйти</NavLink>
 						</>
 						:
 						<NavLink to={'./login'} className={styles.headerLink}>Войти <img src="../src/assets/login.png" /></NavLink>
