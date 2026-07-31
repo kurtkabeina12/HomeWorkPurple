@@ -3,7 +3,7 @@
     border: 2px solid #7b6ef6;
     border-radius: 12px;
     padding: 16px 32px;
-    width: 119px;
+    max-width: fit-content;
     height: 56px;
     background: #7b6ef6;
     font-family: var(--font-family);
@@ -11,6 +11,7 @@
     font-size: 16px;
     line-height: 150%;
     color: #fff;
+    text-wrap: nowrap;
 }
 
 .button:hover {
