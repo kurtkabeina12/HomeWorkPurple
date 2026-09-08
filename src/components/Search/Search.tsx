@@ -3,12 +3,13 @@ import { useState } from 'react';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
 import cn from 'classnames';
+import { SearchProps } from './Search.props';
 
-export function Search() {
+export function Search({ onSearch }: SearchProps) {
     const [query, setQuery] = useState<string>('');
 
     const handleSearch = () => {
-        console.log('Поиск фильма:', query);
+         onSearch(query)
     };
 
     return (
