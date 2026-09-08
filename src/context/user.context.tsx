@@ -20,8 +20,8 @@ export const UserContext = createContext<UserContextType | null>(null);
 
 export function UserContextProvider({ children }: PropsWithChildren) {
   const [user, setUser] = useLocalStorage<User>("user", {
-    userName: "guest",
-    isLogined: false,
+    isLogined: !!localStorage.getItem('jwt'),
+		userName: localStorage.getItem('userName') ?? 'guest',
   });
 
   return (
