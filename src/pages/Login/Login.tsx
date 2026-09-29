@@ -1,36 +1,44 @@
-import { useContext, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styles from "./Login.module.css";
 import { Button } from '../../components/Button/Button';
 import { Headline } from '../../components/Headline/Headline';
 import { Input } from '../../components/Input/Input';
-import { UserContext } from '../../context/user.context';
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../store/store';
+import { login } from '../../store/user.slice';
+
+export type LoginForm = {
+    userName: {
+        value: string;
+    },
+    isLogined: {
+        value: boolean;
+    }
+}
 
 export function Login() {
     const inputRef = useRef<HTMLInputElement>(null);
-    const context = useContext(UserContext);
-    const [login, setLogin] = useState('');
+    const dispatch = useDispatch<AppDispatch>();
+    const { jwt, loginErrorMessage } = useSelector((s: RootState) => s.user);
     const navigate = useNavigate();
 
-    if (!context) {
-        throw new Error("UserContext not found");
+useEffect(() => {
+    if (jwt) {
+        navigate('/', { replace: true });
     }
+}, [jwt, navigate]);
 
-    const { user, setUser } = context;
+    const [loginValue, setLoginValue] = useState('');
 
-    const handleSubmit = () => {
-        if (!login.trim()) {
+    const handleSubmit = async () => {
+        if (!loginValue.trim()) {
             inputRef.current?.focus();
             return;
         }
 
-        setUser({
-            userName: login,
-            isLogined: true
-        });
-
-        navigate('/');
+        await dispatch(login());
     };
 
     return (
@@ -39,8 +47,8 @@ export function Login() {
             <Input
                 placeholder="Введите логин"
                 image={false}
-                value={login}
-                onChange={(e) => setLogin(e.target.value)}
+                value={loginValue}
+                onChange={(e) => setLoginValue(e.target.value)}
                 ref={inputRef}
             />
             <Button text="Войти в профиль" onClick={handleSubmit} />

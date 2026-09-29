@@ -1,26 +1,20 @@
 /* Header.jsx */
 
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch, RootState } from '../../store/store';
+import { userAction } from '../../store/user.slice';
 import styles from './Header.module.css'
-import { UserContext } from '../../context/user.context';
 import { HeaderProps } from './Header.props';
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 
 export function Header(props: HeaderProps) {
-	const context = useContext(UserContext);
+	const dispatch = useDispatch<AppDispatch>();
 
-	if (!context) {
-		throw new Error("UserContext not found");
-	}
-
-	const { user, setUser } = context;
+const jwt = useSelector((state: RootState) => state.user.jwt);
 
 	const logOut = () => {
-		setUser({
-			...user,
-			isLogined: false
-		})
+            dispatch(userAction.logout());
 	}
 	return (
 		<div className={cn(styles['headerBlock'])}>
@@ -47,7 +41,7 @@ export function Header(props: HeaderProps) {
                 Мои фильмы
             </NavLink>
         </li>
-        {props.name ? (
+        {jwt  ? (
             <>
                 <li><p>{props.name}</p></li>
                 <li>
