@@ -10,7 +10,9 @@ import { NavLink } from 'react-router-dom';
 
 export function Header(props: HeaderProps) {
 	const dispatch = useDispatch<AppDispatch>();
-
+const favoritesCount = useSelector(
+    (state: RootState) => state.favorites.idMovies.length
+);
 const jwt = useSelector((state: RootState) => state.user.jwt);
 
 	const logOut = () => {
@@ -32,14 +34,9 @@ const jwt = useSelector((state: RootState) => state.user.jwt);
             </NavLink>
         </li>
         <li>
-            <NavLink
-                to={'/favorites'}
-                className={({ isActive }) =>
-                    cn(styles.headerLink, { [styles.active]: isActive })
-                }
-            >
-                Мои фильмы
-            </NavLink>
+            <NavLink to="/favorites">
+    Мои фильмы ({favoritesCount})
+</NavLink>
         </li>
         {jwt  ? (
             <>
