@@ -21,7 +21,7 @@ const initialState: UserState = {
 
 export const login = createAsyncThunk(
     'user/login',
-    async () => {
+    async (userName: string) => {
 
         const response = await fetch(
             `${PREFIX}/authentication/token/new`,
@@ -39,7 +39,10 @@ export const login = createAsyncThunk(
             throw new Error('Не удалось получить токен');
         }
 
-        return data.request_token;
+        return {
+            token: data.request_token,
+            userName,
+        };
     }
 );
 
@@ -56,14 +59,21 @@ export const userSLice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(login.fulfilled, (state, action) => {
-                state.jwt = action.payload;
-                state.loginErrorMessage = null;
-            })
             .addCase(login.rejected, (state, action) => {
                 state.jwt = null;
                 state.loginErrorMessage = action.error.message;
-            });
+            })
+            .addCase(login.fulfilled, (state, action) => {
+                state.jwt = action.payload.token;
+
+                state.profile = {
+                    id: 0,
+                    userName: action.payload.userName,
+                    isLogined: true,
+                };
+
+                state.loginErrorMessage = null;
+            })
     }
 })
 

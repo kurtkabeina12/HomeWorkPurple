@@ -8,6 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store/store';
 import { login } from '../../store/user.slice';
+import { favoritesActions } from '../../store/favorites.slice';
 
 export type LoginForm = {
     userName: {
@@ -32,14 +33,18 @@ useEffect(() => {
 
     const [loginValue, setLoginValue] = useState('');
 
-    const handleSubmit = async () => {
-        if (!loginValue.trim()) {
-            inputRef.current?.focus();
-            return;
-        }
+const handleSubmit = async () => {
+  if (!loginValue.trim()) {
+    inputRef.current?.focus();
+    return;
+  }
 
-        await dispatch(login());
-    };
+  const result = await dispatch(login(loginValue));
+
+  if (login.fulfilled.match(result)) {
+    dispatch(favoritesActions.loadFavorites(loginValue));
+  }
+};
 
     return (
         <div className={cn(styles['loginBlock'])}>
