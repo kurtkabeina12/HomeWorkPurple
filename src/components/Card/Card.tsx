@@ -19,9 +19,14 @@ export function Card({
 
     const dispatch = useDispatch<AppDispatch>();
 
-    const handleFavorite = () => {
-        dispatch(favoritesActions.addFavorite(id));
-    };
+const handleFavorite = (
+  e: React.MouseEvent<HTMLButtonElement>
+) => {
+  e.preventDefault();
+  e.stopPropagation();
+
+  dispatch(favoritesActions.addFavorite(id));
+};
 
     return (
         <div className={cn(styles["cardItem"])}>

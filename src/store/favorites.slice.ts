@@ -4,14 +4,28 @@ import {
 } from "@reduxjs/toolkit";
 
 import { loadState } from "./storage";
-import { login, userAction } from "./user.slice";
+import {
+  login,
+  userAction,
+  JWT_PERSISTENT_STATE,
+  type UserPersistentState,
+} from "./user.slice";
 
 export interface FavoritesState {
   idMovies: number[];
 }
 
+const savedUserName =
+  loadState<UserPersistentState>(
+    JWT_PERSISTENT_STATE
+  )?.profile?.userName;
+
 const initialState: FavoritesState = {
-  idMovies: [],
+  idMovies: savedUserName
+    ? loadState<FavoritesState>(
+        `favorites_${savedUserName}`
+      )?.idMovies ?? []
+    : [],
 };
 
 export const favoritesSlice = createSlice({
@@ -20,13 +34,19 @@ export const favoritesSlice = createSlice({
   initialState,
 
   reducers: {
-    addFavorite: (state, action: PayloadAction<number>) => {
+    addFavorite: (
+      state,
+      action: PayloadAction<number>
+    ) => {
       if (!state.idMovies.includes(action.payload)) {
         state.idMovies.push(action.payload);
       }
     },
 
-    removeFavorite: (state, action: PayloadAction<number>) => {
+    removeFavorite: (
+      state,
+      action: PayloadAction<number>
+    ) => {
       state.idMovies = state.idMovies.filter(
         (id) => id !== action.payload
       );
@@ -36,11 +56,13 @@ export const favoritesSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(login.fulfilled, (state, action) => {
-        const savedFavorites = loadState<FavoritesState>(
-          `favorites_${action.payload.userName}`
-        );
+        const savedFavorites =
+          loadState<FavoritesState>(
+            `favorites_${action.payload.userName}`
+          );
 
-        state.idMovies = savedFavorites?.idMovies ?? [];
+        state.idMovies =
+          savedFavorites?.idMovies ?? [];
       })
 
       .addCase(userAction.logout, (state) => {
@@ -49,6 +71,7 @@ export const favoritesSlice = createSlice({
   },
 });
 
-export const favoritesActions = favoritesSlice.actions;
+export const favoritesActions =
+  favoritesSlice.actions;
 
 export default favoritesSlice.reducer;
