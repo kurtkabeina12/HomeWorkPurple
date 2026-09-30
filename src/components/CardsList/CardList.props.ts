@@ -1,9 +1,5 @@
-import { CardProps } from "../Card/Card.props";
-
-export interface CardItem extends CardProps {
-    id: number;
-}
+import { Movie } from '../interfaces/movie.interface';
 
 export interface CardListProps {
-    data: CardItem[];
+	data: Movie[];
 }

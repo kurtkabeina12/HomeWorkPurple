@@ -1,48 +1,75 @@
-import { useContext, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from "react";
 import styles from "./Login.module.css";
-import { Button } from '../../components/Button/Button';
-import { Headline } from '../../components/Headline/Headline';
-import { Input } from '../../components/Input/Input';
-import { UserContext } from '../../context/user.context';
-import cn from 'classnames';
+
+import { Button } from "../../components/Button/Button";
+import { Headline } from "../../components/Headline/Headline";
+import { Input } from "../../components/Input/Input";
+
+import cn from "classnames";
+import { useNavigate } from "react-router-dom";
+
+import { useDispatch, useSelector } from "react-redux";
+import type { AppDispatch, RootState } from "../../store/store";
+
+import { login } from "../../store/user.slice";
+
+export type LoginForm = {
+  userName: {
+    value: string;
+  };
+  isLogined: {
+    value: boolean;
+  };
+};
 
 export function Login() {
-    const inputRef = useRef<HTMLInputElement>(null);
-    const context = useContext(UserContext);
-    const [login, setLogin] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
 
+  const dispatch = useDispatch<AppDispatch>();
 
-    if (!context) {
-        throw new Error("UserContext not found");
+  const { jwt, loginErrorMessage } = useSelector(
+    (state: RootState) => state.user
+  );
+
+  const navigate = useNavigate();
+
+  const [loginValue, setLoginValue] = useState("");
+
+  useEffect(() => {
+    if (jwt) {
+      navigate("/", { replace: true });
+    }
+  }, [jwt, navigate]);
+
+  const handleSubmit = async () => {
+    if (!loginValue.trim()) {
+      inputRef.current?.focus();
+      return;
     }
 
-    const { user, setUser } = context;
+    await dispatch(login(loginValue));
+  };
 
-    const handleSubmit = () => {
-        if (!login.trim()) {
-            inputRef.current?.focus();
-            return;
-        }
+  return (
+    <div className={cn(styles["loginBlock"])}>
+      <Headline text="Вход" />
 
-        setUser({
-            userName: login,
-            isLogined: true
-        });
+      <Input
+        placeholder="Введите логин"
+        image={false}
+        value={loginValue}
+        onChange={(e) => setLoginValue(e.target.value)}
+        ref={inputRef}
+      />
 
-        console.log('Вошли:', login);
-    };
+      {loginErrorMessage && (
+        <p>{loginErrorMessage}</p>
+      )}
 
-    return (
-        <div className={cn(styles['loginBlock'])}>
-            <Headline text={'Вход'} />
-            <Input
-                placeholder="Введите логин"
-                image={false}
-                value={login}
-                onChange={(e) => setLogin(e.target.value)}
-                ref={inputRef}
-            />
-            <Button text="Войти в профиль" onClick={handleSubmit} />
-        </div>
-    )
+      <Button
+        text="Войти в профиль"
+        onClick={handleSubmit}
+      />
+    </div>
+  );
 }

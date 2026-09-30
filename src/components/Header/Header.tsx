@@ -1,53 +1,67 @@
 /* Header.jsx */
 
-import { useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import type { AppDispatch, RootState } from '../../store/store';
+import { userAction } from '../../store/user.slice';
 import styles from './Header.module.css'
-import { UserContext } from '../../context/user.context';
 import { HeaderProps } from './Header.props';
 import cn from 'classnames';
 import { NavLink } from 'react-router-dom';
 
 export function Header(props: HeaderProps) {
-	const context = useContext(UserContext);
-
-	if (!context) {
-		throw new Error("UserContext not found");
-	}
-
-	const { user, setUser } = context;
+	const dispatch = useDispatch<AppDispatch>();
+const favoritesCount = useSelector(
+    (state: RootState) => state.favorites.idMovies.length
+);
+const jwt = useSelector((state: RootState) => state.user.jwt);
 
 	const logOut = () => {
-		setUser({
-			...user,
-			isLogined: false
-		})
+            dispatch(userAction.logout());
 	}
 	return (
 		<div className={cn(styles['headerBlock'])}>
-			<img className={cn(styles['headerLogo)'])} src="../src/assets/logo.png" alt="Логотип" />
+			<img className={cn(styles['headerLogo'])} src="../src/assets/logo.png" alt="Логотип" />
 			<nav className={cn(styles['headerLinks'])}>
-				<ul>
-					<NavLink
-  to="/"
-						className={({ isActive }) =>
-							cn(styles.headerLink, {
-								[styles.active]: isActive
-							})
-						}
-					>
-						Поиск фильмов
-					</NavLink>
-					<NavLink to={'/favorites'} className={cn(styles['headerLink'])}>Мои фильмы</NavLink>
-					{props.name ?
-						<>
-							<p>{props.name}</p>
-							<NavLink onClick={logOut} className={cn(styles['headerLink'])} to={'./login'}>Выйти</NavLink>
-						</>
-						:
-						<NavLink to={'./login'} className={styles.headerLink}>Войти <img src="../src/assets/login.png" /></NavLink>
-					}
-				</ul>
-			</nav>
+    <ul>
+        <li>
+            <NavLink
+                to="/"
+                className={({ isActive }) =>
+                    cn(styles.headerLink, { [styles.active]: isActive })
+                }
+            >
+                Поиск фильмов
+            </NavLink>
+        </li>
+        <li>
+            <NavLink to="/favorites">
+    Мои фильмы ({favoritesCount})
+</NavLink>
+        </li>
+        {jwt  ? (
+            <>
+                <li><p>{props.name}</p></li>
+                <li>
+                    <NavLink
+                        onClick={logOut}
+                        to={'/login'}
+                        className={({ isActive }) =>
+                            cn(styles.headerLink, { [styles.active]: isActive })
+                        }
+                    >
+                        Выйти
+                    </NavLink>
+                </li>
+            </>
+        ) : (
+            <li>
+                <NavLink to={'/login'} className={styles.headerLink}>
+                    Войти <img src="../src/assets/login.png" />
+                </NavLink>
+            </li>
+        )}
+    </ul>
+</nav>
 		</div>
 	)
 }
