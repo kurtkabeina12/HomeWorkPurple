@@ -1,14 +1,14 @@
 import styles from './CardsList.module.css';
 
 import { Card } from '../Card/Card';
-
 import { CardListProps } from './CardList.props';
 
 import cn from 'classnames';
-
 import { Link } from 'react-router-dom';
 
+
 export function CardsList({ data }: CardListProps) {
+
 
     return (
         <div className={cn(styles['cardList'])}>

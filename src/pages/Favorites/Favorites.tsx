@@ -8,40 +8,67 @@ import { PREFIX, apiHeaders } from "../../helpers/Api";
 import { CardsList } from "../../components/CardsList/CardsList";
 
 export function Favorites() {
-    const idMovies = useSelector(
-        (state: RootState) => state.favorites.idMovies
-    );
+  const idMovies = useSelector(
+    (state: RootState) => state.favorites.idMovies
+  );
 
-    const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const getFavorites = async () => {
-            const responses = await Promise.all(
-                idMovies.map((id) =>
-                    axios.get<Movie>(
-                        `${PREFIX}/movie/${id}`,
-                        {
-                            headers: apiHeaders,
-                        }
-                    )
-                )
-            );
+  useEffect(() => {
+    const getFavorites = async () => {
+      if (idMovies.length === 0) {
+        setMovies([]);
+        return;
+      }
 
-            setMovies(responses.map((response) => response.data));
-        };
+      try {
+        setLoading(true);
+        setError(null);
 
-        getFavorites();
-    }, [idMovies]);
+        const responses = await Promise.all(
+          idMovies.map((id) =>
+            axios.get<Movie>(
+              `${PREFIX}/movie/${id}`,
+              {
+                headers: apiHeaders,
+              }
+            )
+          )
+        );
 
-    return (
-        <>
-            <h1>Мои фильмы</h1>
+        setMovies(
+          responses.map((response) => response.data)
+        );
+      } catch (error) {
+        console.error("Ошибка загрузки избранных фильмов:", error);
+        setError("Не удалось загрузить избранные фильмы");
+      } finally {
+        setLoading(false);
+      }
+    };
 
-            {movies.length > 0 ? (
-                <CardsList data={movies} />
-            ) : (
-                <p>У вас пока нет избранных фильмов</p>
-            )}
-        </>
-    );
+    getFavorites();
+  }, [idMovies]);
+
+  if (loading) {
+    return <p>Загрузка избранных фильмов...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  return (
+    <>
+      <h1>Мои фильмы</h1>
+
+      {movies.length > 0 ? (
+        <CardsList data={movies} />
+      ) : (
+        <p>У вас пока нет избранных фильмов</p>
+      )}
+    </>
+  );
 }

@@ -1,5 +1,10 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import {
+  createSlice,
+  type PayloadAction,
+} from "@reduxjs/toolkit";
+
 import { loadState } from "./storage";
+import { login, userAction } from "./user.slice";
 
 export interface FavoritesState {
   idMovies: number[];
@@ -26,14 +31,21 @@ export const favoritesSlice = createSlice({
         (id) => id !== action.payload
       );
     },
+  },
 
-    loadFavorites: (state, action: PayloadAction<string>) => {
-      const savedFavorites = loadState<FavoritesState>(
-        `favorites_${action.payload}`
-      );
+  extraReducers: (builder) => {
+    builder
+      .addCase(login.fulfilled, (state, action) => {
+        const savedFavorites = loadState<FavoritesState>(
+          `favorites_${action.payload.userName}`
+        );
 
-      state.idMovies = savedFavorites?.idMovies ?? [];
-    },
+        state.idMovies = savedFavorites?.idMovies ?? [];
+      })
+
+      .addCase(userAction.logout, (state) => {
+        state.idMovies = [];
+      });
   },
 });
 
