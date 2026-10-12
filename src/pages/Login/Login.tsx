@@ -5,12 +5,13 @@ import { Headline } from '../../components/Headline/Headline';
 import { Input } from '../../components/Input/Input';
 import { UserContext } from '../../context/user.context';
 import cn from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 export function Login() {
     const inputRef = useRef<HTMLInputElement>(null);
     const context = useContext(UserContext);
     const [login, setLogin] = useState('');
-
+    const navigate = useNavigate();
 
     if (!context) {
         throw new Error("UserContext not found");
@@ -29,7 +30,7 @@ export function Login() {
             isLogined: true
         });
 
-        console.log('Вошли:', login);
+        navigate('/');
     };
 
     return (

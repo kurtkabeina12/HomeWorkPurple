@@ -1,5 +1,5 @@
 export interface CardProps {
-    image: string;
-    filmName: string;
-    filmRating: number;
+	poster_path: string;
+	title: string;
+	vote_average: number;
 }
