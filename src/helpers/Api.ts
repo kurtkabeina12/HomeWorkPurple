@@ -1,6 +1,5 @@
 export const PREFIX = 'https://api.themoviedb.org/3';
-export const IMAGE_PREFIX = 'https://image.tmdb.org/t/p/w500';
-export const TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlODE4NzJiNDQxZjViMDNmZTI3OTI1MzdlMTViNzBiZCIsIm5iZiI6MTc4NTQzMDAzMi45MzcsInN1YiI6IjZhNmI4MDEwMzhjMjg3ZGY3YTNmMDBhOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AIu883LimXiCHlnPTWkwQeh8nH11iRdWpwLC85NFCMk';
+export const TOKEN = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiMmY2OGM1ZWU1NTU3MGUyMzI2YzMxZTkyNjY3NmYyYyIsIm5iZiI6MTc5MDYyMDcwMi45NTksInN1YiI6IjZhYmFiNDFlMmVlOGNiOWVlZTFiNGIxYyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.loG2UaTK7dAbx6gP7u0ZSLGSxrUp3DYWtfjex6XrJN4';
 
 export const apiHeaders = {
 	accept: 'application/json',
